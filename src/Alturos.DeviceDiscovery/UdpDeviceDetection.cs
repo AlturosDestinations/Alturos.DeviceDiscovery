@@ -66,9 +66,10 @@ namespace Alturos.DeviceDiscovery
                         using (var receiver = new UdpReceiver(sendPort))
                         {
                             receiver.DataReceived += dataReveived;
-                            receiver.StartListening();
-                            this.Send(deviceDiscoverPort, deviceHelloPackage, udpClient);
-                            await Task.Delay(timeout, cancellationToken);
+                            _= Task.Run(async () => await receiver.ReceiveAsync().ConfigureAwait(false));
+                            await this.SendAsync(udpClient, deviceDiscoverPort, deviceHelloPackage).ConfigureAwait(false);
+                            udpClient.Close();
+                            await Task.Delay(timeout, cancellationToken).ConfigureAwait(false);
                             receiver.DataReceived -= dataReveived;
                         }
                     }
@@ -77,7 +78,7 @@ namespace Alturos.DeviceDiscovery
                 tasks.Add(task);
             }
 
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(tasks).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -98,19 +99,18 @@ namespace Alturos.DeviceDiscovery
             }
 
             this.DeviceResponseReceived += dataReveived;
-            await this.ScanAsync(deviceDiscoverPort, deviceHelloPackage, timeout, cancellationToken);
+            await this.ScanAsync(deviceDiscoverPort, deviceHelloPackage, timeout, cancellationToken).ConfigureAwait(false);
             this.DeviceResponseReceived -= dataReveived;
 
             return items.ToArray();
         }
 
-        private void Send(int destinationPort, byte[] deviceHelloPackage, UdpClient udpClient)
+        private async Task SendAsync(UdpClient udpClient, int destinationPort, byte[] deviceHelloPackage)
         {
-            Log.Debug($"{nameof(Send)} - Send hello package");
+            Log.Debug($"{nameof(SendAsync)} - Send hello package");
 
             var ipEndpoint = new IPEndPoint(IPAddress.Broadcast, destinationPort);
-            udpClient.Send(deviceHelloPackage, deviceHelloPackage.Length, ipEndpoint);
-            udpClient.Close();
+            await udpClient.SendAsync(deviceHelloPackage, deviceHelloPackage.Length, ipEndpoint).ConfigureAwait(false);
         }
     }
 }

@@ -12,12 +12,20 @@ namespace Alturos.DeviceDiscovery.TestConsole
         {
             Console.WriteLine($"Start scan {DateTime.Now:HH:mm:ss,fff}");
 
+            Console.WriteLine("########################## First test ################################");
+
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
 
             var detection = new UdpDeviceDetection();
             var packages = detection.GetDeviceInfoPackagesAsync(5555, new byte[] { 0x43, 0x30, 0x32 }, timeout: 1000).GetAwaiter().GetResult();
-            
+            foreach (var package in packages)
+            {
+                Console.WriteLine($"{package.DiscoveredNetwork.IPAddress} {package.DeviceIpAddress} {BitConverter.ToString(package.ReceivedData)}");
+            }
+
+            Console.WriteLine("########################## Second test ###############################");
+
             detection.DeviceResponseReceived += Detection_DeviceResponseReceived;
             detection.ScanAsync(5555, new byte[] { 0x43, 0x30, 0x32 }, timeout: 1000).GetAwaiter().GetResult();
             detection.DeviceResponseReceived -= Detection_DeviceResponseReceived;

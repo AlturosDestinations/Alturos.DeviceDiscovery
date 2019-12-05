@@ -2,6 +2,7 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
 namespace Alturos.DeviceDiscovery
 {
@@ -31,40 +32,15 @@ namespace Alturos.DeviceDiscovery
             this._udpClient?.Dispose();
         }
 
-        public void StartListening()
+        public async Task ReceiveAsync()
         {
             try
             {
-                if (this._disposed)
+                while (!this._disposed)
                 {
-                    return;
+                    var result = await this._udpClient.ReceiveAsync().ConfigureAwait(false);
+                    this.DataReceived?.Invoke(result.Buffer, result.RemoteEndPoint.Address);
                 }
-
-                this._udpClient.BeginReceive(this.Receive, null);
-            }
-            catch (Exception exception)
-            {
-                Log.Error(nameof(StartListening), exception);
-            }
-        }
-
-        private void Receive(IAsyncResult ar)
-        {
-            try
-            {
-                if (this._disposed)
-                {
-                    return;
-                }
-
-                var ipEndPoint = new IPEndPoint(IPAddress.Any, 0);
-                var bytes = this._udpClient.EndReceive(ar, ref ipEndPoint);
-
-                Log.Debug($"{nameof(Receive)} - {BitConverter.ToString(bytes)}");
-
-                this.DataReceived?.Invoke(bytes, ipEndPoint.Address);
-
-                this.StartListening();
             }
             catch (ObjectDisposedException)
             {
@@ -72,7 +48,7 @@ namespace Alturos.DeviceDiscovery
             }
             catch (Exception exception)
             {
-                Log.Error(nameof(Receive), exception);
+                Log.Error(nameof(ReceiveAsync), exception);
             }
         }
     }
