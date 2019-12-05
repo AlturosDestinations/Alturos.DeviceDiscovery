@@ -1,0 +1,18 @@
+version: '1.0.{build}'
+image: Visual Studio 2019
+branches:
+  only:
+  - master
+configuration: Release
+before_build:
+   - nuget restore src
+build:
+  project: src/Alturos.DeviceDiscovery.sln
+  publish_nuget: true
+  publish_nuget_symbols: true
+  verbosity: normal
+deploy:
+  provider: NuGet
+  api_key:
+    secure: if1w6BM8nxRD4rK7gL1wf6T9nKoRi0TGzVPmm/5HsRZNTzTJBXsQF7POXORvIo2N
+  artifact: /.*\.nupkg/

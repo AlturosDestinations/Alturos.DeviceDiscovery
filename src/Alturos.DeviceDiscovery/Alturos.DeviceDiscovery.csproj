@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Alturos Destinations</Authors>
+    <Company>Alturos Destinations</Company>
+    <Description>Discover devices in a network</Description>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <PackageProjectUrl>https://github.com/AlturosDestinations/Alturos.DeviceDiscovery</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/AlturosDestinations/Alturos.DeviceDiscovery</RepositoryUrl>
+    <PackageTags>device discovery udp broadcast</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+  </ItemGroup>
+
+</Project>
