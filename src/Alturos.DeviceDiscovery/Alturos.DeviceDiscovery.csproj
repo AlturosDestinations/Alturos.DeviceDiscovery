@@ -12,6 +12,7 @@
     <RepositoryUrl>https://github.com/AlturosDestinations/Alturos.DeviceDiscovery</RepositoryUrl>
     <PackageTags>device discovery udp broadcast</PackageTags>
     <Version>1.0.1</Version>
+    <PackageReleaseNotes>Add ConfigureAwait(false)</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
