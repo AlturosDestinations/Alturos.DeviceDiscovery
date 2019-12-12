@@ -9,7 +9,7 @@ PM> install-package Alturos.DeviceDiscovery
 
 ## Examples
 
-###MOXA NPort discovery
+### MOXA NPort discovery
 
 ```cs
 var detection = new UdpDeviceDetection();
