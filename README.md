@@ -7,7 +7,9 @@ Quick install Alturos.DeviceDiscovery over [NuGet](https://www.nuget.org/package
 PM> install-package Alturos.DeviceDiscovery
 ```
 
-## Example MOXA NPort discovery
+## Examples
+
+###MOXA NPort discovery
 
 ```cs
 var detection = new UdpDeviceDetection();
