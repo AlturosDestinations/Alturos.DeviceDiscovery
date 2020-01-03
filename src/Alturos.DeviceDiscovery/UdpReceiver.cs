@@ -17,6 +17,7 @@ namespace Alturos.DeviceDiscovery
         public UdpReceiver(int port)
         {
             this._udpClient = new UdpClient(port);
+            this._udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
         }
 
         public void Dispose()
