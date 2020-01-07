@@ -6,12 +6,12 @@
     <Authors>Alturos Destinations</Authors>
     <Company>Alturos Destinations</Company>
     <Description>Discover devices in a network</Description>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <FileVersion>1.0.1</FileVersion>
+    <AssemblyVersion>1.0.2</AssemblyVersion>
+    <FileVersion>1.0.2</FileVersion>
     <PackageProjectUrl>https://github.com/AlturosDestinations/Alturos.DeviceDiscovery</PackageProjectUrl>
     <RepositoryUrl>https://github.com/AlturosDestinations/Alturos.DeviceDiscovery</RepositoryUrl>
     <PackageTags>device discovery udp broadcast</PackageTags>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <PackageReleaseNotes>Add ConfigureAwait(false)</PackageReleaseNotes>
   </PropertyGroup>
 
