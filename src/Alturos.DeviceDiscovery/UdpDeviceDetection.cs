@@ -48,7 +48,7 @@ namespace Alturos.DeviceDiscovery
                     Log.Debug($"{nameof(ScanAsync)} - Start broadcast {network.IPAddress}");
                     using (var udpClient = new UdpClient(localEndpoint))
                     {
-                        udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast | SocketOptionName.ReuseAddress, true);
+                        udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, true);
 
                         //The sendPort is the same on the device send the answer back
                         var sendPort = ((IPEndPoint)udpClient.Client.LocalEndPoint).Port;
