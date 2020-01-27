@@ -1,3 +1,5 @@
+![Alturos.DeviceDiscovery](doc/logo-banner.png)
+
 # Alturos.DeviceDiscovery
 Discover devices in a network over an udp broadcast
 
